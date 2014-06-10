@@ -1,6 +1,4 @@
-setwd("/media/Volume/git-repos/RTwitterAPI/")
-source("./curl_get_request.R");
-source("./oauth1_signature.R");
+source("/media/Volume/git-repos/RTwitterAPI/twitter_api_call.R");
 
 params <- c(
   "oauth_consumer_key" = "...", 
@@ -19,7 +17,7 @@ params <- c(
 url <- "https://api.twitter.com/1.1/friends/ids.json";
 query <- c(cursor=-1,screen_name="joyofdata",count=10);
 
-result <- curl_get_request(url, query, params, print_result=TRUE)
+result <- twitter_api_call(url, query, params, print_result=TRUE)
 
 # prints prettify()ed content of result:
 #
