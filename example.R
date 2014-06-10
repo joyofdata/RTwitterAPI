@@ -1,14 +1,14 @@
-source("/media/Volume/git-repos/RTwitterAPI/twitter_api_call.R");
+source("/[...]/RTwitterAPI/twitter_api_call.R");
 
 params <- c(
-  "oauth_consumer_key" = "...", 
-  "oauth_nonce" = NA,
+  "oauth_consumer_key"     = "[API Key]", 
+  "oauth_nonce"            = NA,
   "oauth_signature_method" = "HMAC-SHA1",
-  "oauth_timestamp" = NA,
-  "oauth_token" = "...",
-  "oauth_version" = "1.0",
-  "consumer_secret" = "...",
-  "oauth_token_secret" = "..."
+  "oauth_timestamp"        = NA,
+  "oauth_token"            = "[Access Token]",
+  "oauth_version"          = "1.0",
+  "consumer_secret"        = "[API Secret]",
+  "oauth_token_secret"     = "[Access Token Secret]"
 );
 
 # documentation:
