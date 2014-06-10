@@ -1,0 +1,43 @@
+setwd("/media/Volume/git-repos/RTwitterAPI/")
+source("./curl_get_request.R");
+source("./oauth1_signature.R");
+
+params <- c(
+  "oauth_consumer_key" = "...", 
+  "oauth_nonce" = NA,
+  "oauth_signature_method" = "HMAC-SHA1",
+  "oauth_timestamp" = NA,
+  "oauth_token" = "...",
+  "oauth_version" = "1.0",
+  "consumer_secret" = "...",
+  "oauth_token_secret" = "..."
+);
+
+# documentation:
+# https://dev.twitter.com/docs/api/1.1/get/friends/ids
+
+url <- "https://api.twitter.com/1.1/friends/ids.json";
+query <- c(cursor=-1,screen_name="joyofdata",count=10);
+
+result <- curl_get_request(url, query, params, print_result=TRUE)
+
+# prints prettify()ed content of result:
+#
+# {
+#   "ids" : [
+#     26076934,
+#     51754021,
+#     391696389,
+#     1469734256,
+#     19575003,
+#     18466967,
+#     4816,
+#     2329066872,
+#     827108112,
+#     352947624
+#     ],
+#   "next_cursor" : 1458759875766514632,
+#   "next_cursor_str" : "1458759875766514632",
+#   "previous_cursor" : 0,
+#   "previous_cursor_str" : "0"
+# }
