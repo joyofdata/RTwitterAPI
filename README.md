@@ -5,7 +5,7 @@ A description on how this works can be found here:
 
 http://www.joyofdata.de/blog/talking-to-twitters-rest-api-v1-1-with-r/
 
-```
+```R
 setwd("/[...]/RTwitterAPI/");
 source("./twitter_api_call.R");
  
@@ -19,7 +19,8 @@ params <- c(
   "consumer_secret"        = "[API Secret]",
   "oauth_token_secret"     = "[Access Token Secret]"
 );
- 
+
+# https://dev.twitter.com/docs/api/1.1/get/followers/ids
 url   <- "https://api.twitter.com/1.1/friends/ids.json";
 query <- c(cursor=-1, screen_name="hrw", count=10);
  
