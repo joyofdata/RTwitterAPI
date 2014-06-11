@@ -17,6 +17,9 @@ oauth1_signature <- function(method, url, api, params) {
   params <- sapply(params, curlEscape);
   pstr <- paste(paste(names(params),"=",params,sep=""),collapse="&");
   
+  # it is important to use curlEscape instead of URLencode because the latter encodes
+  # using lower case letters but we need upper case letters. Otherwise the resulting
+  # signature will be different from what Twitter/OAuth expects/calculates.
   final <- sprintf("%s&%s&%s",toupper(method), curlEscape(url), curlEscape(pstr));
   
   sig <- sprintf("%s&%s",curlEscape(secrets["consumer_secret"]),curlEscape(secrets["oauth_token_secret"]));
