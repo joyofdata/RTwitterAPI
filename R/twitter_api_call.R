@@ -1,6 +1,3 @@
-library(jsonlite);
-library(RCurl);
-
 #' GET requests Twitter API
 #'
 #' @param url f.x. "https://api.twitter.com/1.1/friends/ids.json"
@@ -11,7 +8,10 @@ library(RCurl);
 #' @param cygwin_bash f.x. "c:\\cygwin64\\bin\\bash.exe"
 #' @return JSON
 #' @export
-twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe") {
+twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe", print_cmd=FALSE) {
+  library(jsonlite);
+  library(RCurl);
+  
   if(is.na(params["oauth_timestamp"])) {
     params["oauth_timestamp"] <- as.character(as.integer(Sys.time()));
   }
@@ -39,6 +39,9 @@ twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FA
   } else {
     httpheader_escaped <- sprintf("Authorization: %s",gsub('"','\"',httpheader["Authorization"]))
     cmd <- sprintf("%s -c \"/usr/bin/curl --silent --get '%s' --data '%s' --header '%s'\"", cygwin_bash, url, q, httpheader_escaped)
+    if(print_cmd) {
+      print(cmd)
+    }
     result <- system(cmd)
   }
   

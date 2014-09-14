@@ -1,7 +1,3 @@
-library(RCurl);
-library(digest);
-library(base64enc);
-
 # calculates the signature for the request as described in the docs:
 # https://dev.twitter.com/docs/auth/creating-signature
 
@@ -13,6 +9,9 @@ library(base64enc);
 #' @param params named vector needed for generating oauth1 signature
 #' @return signature string
 oauth1_signature <- function(method, url, api, params) {
+  library(RCurl);
+  library(digest);
+  library(base64enc);
   
   secrets <- params[c("consumer_secret","oauth_token_secret")];
   
