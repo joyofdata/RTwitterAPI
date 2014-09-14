@@ -6,8 +6,10 @@ A description on how this works can be found here:
 http://www.joyofdata.de/blog/talking-to-twitters-rest-api-v1-1-with-r/
 
 ```
-setwd("/[...]/RTwitterAPI/");
-source("./twitter_api_call.R");
+install.packages("devtools")
+devtools::install_github("joyofdata/RTwitterAPI")
+
+library(RTwitterAPI)
  
 params <- c(
   "oauth_consumer_key"     = "[API Key]",
@@ -24,5 +26,5 @@ params <- c(
 url   <- "https://api.twitter.com/1.1/friends/ids.json";
 query <- c(cursor=-1, screen_name="hrw", count=10);
  
-result <- twitter_api_call(url, query, params, print_result=TRUE)
+result <- RTwitterAPI::twitter_api_call(url, query, params, print_result=TRUE)
 ```
