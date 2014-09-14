@@ -1,11 +1,16 @@
 library(jsonlite);
 library(RCurl);
 
-source("./oauth1_signature.R");
-
-# GET request to the API
-# https://dev.twitter.com/docs/auth/authorizing-request
-
+#' GET requests Twitter API
+#'
+#' @param url f.x. "https://api.twitter.com/1.1/friends/ids.json"
+#' @param api f.x. c(cursor=-1, screen_name="hrw", count=10)
+#' @param params named vector needed for generating oauth1 signature
+#' @param print_result TRUE if you want to have resulting JSON printed out
+#' @param use_cygwin TRUE if you would like to resort to Cygwin/Curl workaround
+#' @param cygwin_bash f.x. "c:\\cygwin64\\bin\\bash.exe"
+#' @return JSON
+#' @export
 twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe") {
   if(is.na(params["oauth_timestamp"])) {
     params["oauth_timestamp"] <- as.character(as.integer(Sys.time()));

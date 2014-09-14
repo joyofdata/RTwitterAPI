@@ -5,6 +5,13 @@ library(base64enc);
 # calculates the signature for the request as described in the docs:
 # https://dev.twitter.com/docs/auth/creating-signature
 
+#' Generates OAuth1 signature needed to authorize API request
+#'
+#' @param method f.x. "HMAC-SHA1"
+#' @param url f.x. "https://api.twitter.com/1.1/friends/ids.json"
+#' @param api f.x. c(cursor=-1, screen_name="hrw", count=10)
+#' @param params named vector needed for generating oauth1 signature
+#' @return signature string
 oauth1_signature <- function(method, url, api, params) {
   
   secrets <- params[c("consumer_secret","oauth_token_secret")];
