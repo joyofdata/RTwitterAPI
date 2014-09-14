@@ -8,7 +8,7 @@ Depends:
 License: MIT
 LazyData: true
 Imports:
-    jsonlite
-    RCurl
-    digest
+    jsonlite,
+    RCurl,
+    digest,
     base64enc
