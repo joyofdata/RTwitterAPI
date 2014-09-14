@@ -6,7 +6,7 @@ source("./oauth1_signature.R");
 # GET request to the API
 # https://dev.twitter.com/docs/auth/authorizing-request
 
-twitter_api_call <- function(url, api, params, print_result=FALSE) {
+twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe") {
   if(is.na(params["oauth_timestamp"])) {
     params["oauth_timestamp"] <- as.character(as.integer(Sys.time()));
   }
@@ -29,7 +29,13 @@ twitter_api_call <- function(url, api, params, print_result=FALSE) {
   q <- paste(paste(names(api),api,sep="="), collapse="&");
   urlq <- paste(url,q,sep="?");
   
-  result <- getURL(urlq, httpheader=httpheader);
+  if(!use_cygwin) {
+    result <- getURL(urlq, httpheader=httpheader);
+  } else {
+    httpheader_escaped <- sprintf("Authorization: %s",gsub('"','\"',httpheader["Authorization"]))
+    cmd <- sprintf("%s -c \"/usr/bin/curl --silent --get '%s' --data '%s' --header '%s'\"", cygwin_bash, url, q, httpheader_escaped)
+    result <- system(cmd)
+  }
   
   if(print_result) {
     cat(prettify(result));
