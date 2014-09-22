@@ -1,6 +1,6 @@
 Package: RTwitterAPI
 Title: Facilitates GET requests to Twitter API
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: "Raffael Vogler <first.last@example.com> [aut, cre]"
 Description: Facilitates GET requests to Twitter API
 Depends:
