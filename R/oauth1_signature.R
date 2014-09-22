@@ -20,6 +20,7 @@ oauth1_signature <- function(method, url, api, params, test=FALSE) {
       esc <- RCurl::curlEscape(str)
       esc <- gsub("%2E",".",esc)
       esc <- gsub("%2D","-",esc)
+      esc <- gsub("%5F","_",esc)
     }
   } else {
     stop("curlEscape('.') is supposed to be either '.' or '%2E'")
