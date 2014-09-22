@@ -51,7 +51,7 @@ twitter_api_call <- function(
       if(print_cmd) {
         print(cmd)
       }
-      result <- system(cmd)
+      result <- system(cmd, intern=TRUE)
     }
   } else {
     result <- "{}"
