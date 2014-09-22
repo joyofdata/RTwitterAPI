@@ -42,7 +42,8 @@ oauth1_signature <- function(method, url, api, params, test=FALSE) {
   
   sig <- sprintf("%s&%s",curlEscape(secrets["consumer_secret"]),curlEscape(secrets["oauth_token_secret"]));
   
-  signature <- base64encode(hmac(sig,final,algo="sha1",raw=TRUE));
+  hmac <- hmac(sig,final,algo="sha1",raw=TRUE)
+  signature <- base64encode(hmac);
   signature_escaped <- curlEscape(signature);
   
   if(test) {
@@ -52,6 +53,7 @@ oauth1_signature <- function(method, url, api, params, test=FALSE) {
         pstr = pstr,
         final = final,
         sig = sig,
+        hmac = hmac,
         signature = signature,
         signature_escaped = signature_escaped
       )
