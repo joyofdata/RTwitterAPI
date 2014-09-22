@@ -12,6 +12,18 @@ oauth1_signature <- function(method, url, api, params, test=FALSE) {
   library(RCurl);
   library(digest);
   library(base64enc);
+  
+  if(curlEscape(".") == ".") {
+    # that's how we want it!
+  } else if(curlEscape(".") == "%2E") {
+    curlEscape <- function(str) {
+      esc <- RCurl::curlEscape(str)
+      esc <- gsub("%2E",".",esc)
+      esc <- gsub("%2D","-",esc)
+    }
+  } else {
+    stop("curlEscape('.') is supposed to be either '.' or '%2E'")
+  }
     
   secrets <- params[c("consumer_secret","oauth_token_secret")];
   
