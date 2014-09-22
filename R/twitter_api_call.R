@@ -8,7 +8,10 @@
 #' @param cygwin_bash f.x. "c:\\cygwin64\\bin\\bash.exe"
 #' @return JSON
 #' @export
-twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe", print_cmd=FALSE) {
+twitter_api_call <- function(
+    url, api, params, print_result=FALSE, 
+    use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe", print_cmd=FALSE,
+    test=TRUE) {
   library(jsonlite);
   library(RCurl);
   
@@ -20,7 +23,12 @@ twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FA
     params["oauth_nonce"] <- sprintf("%d%s",as.integer(Sys.time()),paste(floor(runif(6)*10^6),collapse=""));
   }
   
-  params["oauth_signature"] <- oauth1_signature(method = "GET", url, api, params);
+  if(test) {
+    test_data <- oauth1_signature(method = "GET", url, api, params, test=TRUE);
+    params["oauth_signature"] <- test_data[["signature_escaped"]]
+  } else {
+    params["oauth_signature"] <- oauth1_signature(method = "GET", url, api, params, test=FALSE);
+  }
   
   httpheader <- c(
     "Authorization" = sprintf(paste(c(
@@ -47,6 +55,14 @@ twitter_api_call <- function(url, api, params, print_result=FALSE, use_cygwin=FA
   
   if(print_result) {
     cat(prettify(result));
+  }
+  
+  if(test) {
+    test_data[["httpheader"]] <- httpheader
+    test_data[["q"]] <- q
+    test_data[["urlq"]] <- urlq
+    
+    return(test_data)
   }
   
   return(result);
