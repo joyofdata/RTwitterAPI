@@ -1,9 +1,9 @@
 RTwitterAPI
 ===========
 
-A description on how this works can be found here:
+A description on how this package is applied (for Linux and Windows) can be found here:
 
-http://www.joyofdata.de/blog/talking-to-twitters-rest-api-v1-1-with-r/
+http://www.joyofdata.de/blog/twitters-rest-api-v1-1-with-r-for-linux-and-windows/
 
 ```
 install.packages("devtools")
