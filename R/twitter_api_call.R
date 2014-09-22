@@ -11,7 +11,7 @@
 twitter_api_call <- function(
     url, api, params, print_result=FALSE, 
     use_cygwin=FALSE, cygwin_bash="c:\\cygwin64\\bin\\bash.exe", print_cmd=FALSE,
-    test=TRUE) {
+    test=FALSE) {
   library(jsonlite);
   library(RCurl);
   
