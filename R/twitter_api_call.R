@@ -54,7 +54,7 @@ twitter_api_call <- function(
       result <- system(cmd)
     }
   } else {
-    result <- "-"
+    result <- "{}"
   }
   
   if(print_result) {
