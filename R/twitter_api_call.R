@@ -42,15 +42,19 @@ twitter_api_call <- function(
   q <- paste(paste(names(api),api,sep="="), collapse="&");
   urlq <- paste(url,q,sep="?");
   
-  if(!use_cygwin) {
-    result <- getURL(urlq, httpheader=httpheader);
-  } else {
-    httpheader_escaped <- sprintf("Authorization: %s",gsub('"','\"',httpheader["Authorization"]))
-    cmd <- sprintf("%s -c \"/usr/bin/curl --silent --get '%s' --data '%s' --header '%s'\"", cygwin_bash, url, q, httpheader_escaped)
-    if(print_cmd) {
-      print(cmd)
+  if(!test) {
+    if(!use_cygwin) {
+      result <- getURL(urlq, httpheader=httpheader);
+    } else {
+      httpheader_escaped <- sprintf("Authorization: %s",gsub('"','\"',httpheader["Authorization"]))
+      cmd <- sprintf("%s -c \"/usr/bin/curl --silent --get '%s' --data '%s' --header '%s'\"", cygwin_bash, url, q, httpheader_escaped)
+      if(print_cmd) {
+        print(cmd)
+      }
+      result <- system(cmd)
     }
-    result <- system(cmd)
+  } else {
+    result <- "-"
   }
   
   if(print_result) {
