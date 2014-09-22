@@ -49,7 +49,7 @@ twitter_api_call <- function(
       httpheader_escaped <- sprintf("Authorization: %s",gsub('"','\"',httpheader["Authorization"]))
       cmd <- sprintf("%s -c \"/usr/bin/curl --silent --get '%s' --data '%s' --header '%s'\"", cygwin_bash, url, q, httpheader_escaped)
       if(print_cmd) {
-        print(cmd)
+        cat(cmd)
       }
       result <- system(cmd, intern=TRUE)
     }
