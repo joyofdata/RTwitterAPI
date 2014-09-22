@@ -13,6 +13,8 @@ oauth1_signature <- function(method, url, api, params, test=FALSE) {
   library(digest);
   library(base64enc);
   
+  # http://oauth.net/core/1.0/#encoding_parameters
+  
   if(curlEscape(".") == ".") {
     # that's how we want it!
   } else if(curlEscape(".") == "%2E") {
@@ -21,6 +23,7 @@ oauth1_signature <- function(method, url, api, params, test=FALSE) {
       esc <- gsub("%2E",".",esc)
       esc <- gsub("%2D","-",esc)
       esc <- gsub("%5F","_",esc)
+      esc <- gsub("%7E","~",esc)
     }
   } else {
     stop("curlEscape('.') is supposed to be either '.' or '%2E'")
